@@ -24,27 +24,43 @@ class Fighter {
   attack(Fighter) {
     let attackPoints = randomNum(1,6);
   Fighter.healthPoints = Fighter.healthPoints - attackPoints;
-  alert(this.name + " attacked " + Fighter.name + " and now " + Fighter.name + " has a health level of " + Fighter.healthPoints);
-
+  alert(this.name + " attacked for " + attackPoints + " points on " + Fighter.name + " and now " + Fighter.name + " has a health level of " + Fighter.healthPoints);
   }
+
+  
 }
 
 class Monster extends Fighter {
+   
   constructor(name, healthPoints){
     super(name,healthPoints)
-
-    // this.name = name;
+    this.specialAbility=('Body on fire');
+    //  this.name = name;
     // this.healthPoints = healthPoints;
+  }
+  // special ability attacks player on round 3
+  specialAttack(Fighter){
+    let specialPoints = randomNum(1,3);
+  Fighter.healthPoints = Fighter.healthPoints - specialPoints;
+  alert(this.name + " used Body of Fire and attacked " + Fighter.name + " for " + specialPoints + " points");
   }
 }
 
 let monster = new Monster("phoneix", 15);
+console.log(monster);
 
 class Hero extends Fighter {
   constructor(name, healthPoints){
     super(name,healthPoints)
+    // this.specialAbility=('Body of Water');
     // this.name = name;
     // this.healthPoints = healthPoints;
+  }
+  // special ability adds health on round 3
+  specialAbility(Fighter){
+    let specialPoints = randomNum(1,3);
+  Fighter.healthPoints = Fighter.healthPoints + specialPoints;
+  alert(this.name + " used Body of Water and healed themself for " + specialPoints + " points");
   }
 }
 
@@ -133,9 +149,15 @@ function playGame() {
   //while loop that runs until player or monster's health is <= 0 
   //add the condition in the while loop parentheses 
   while(hero.healthPoints> 0 && monster.healthPoints > 0){
+
+    if(roundNumber==3){
+       hero.specialAbility(hero);
+      monster.specialAttack(hero);
+    }
+
     roundNumber++;
    
-    alert('round;' + roundNumber + 'player health;' + hero.healthPoints + 'monster health;' + monster.healthPoints)
+    alert("Round: " + roundNumber + " " + hero.name + " health: " + hero.healthPoints + " " + monster.name + " health: " + monster.healthPoints);
    //write an alert statement that tells the player what round number it is, and the player's and monster's current health points
  
    //call playRound inside the while loop
